@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Container } from "react-bootstrap";
+
+import { Title } from "./components/Title";
+import { SearchForm } from "./components/SearchForm";
+import { MovieList } from "./components/MovieList";
+import { useState } from "react";
 
 function App() {
+  const [movies, setMovies] = useState([]);
+
+  const addMovieToList = (movieObj) => {
+    const newArg = movies.map((item) => item.imdbID !== movieObj.imdID);
+
+    setMovies([...movies, movieObj]);
+  };
+  console.log(movies);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <Container>
+        <Title />
+        <SearchForm addMovieToList={addMovieToList} />
+        <MovieList movies={movies} />
+      </Container>
     </div>
   );
 }
