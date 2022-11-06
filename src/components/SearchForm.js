@@ -15,7 +15,6 @@ export const SearchForm = ({ addMovieToList }) => {
   useEffect(() => {
     // generate random char
     const char = randomChar();
-    console.log(char);
 
     // and call fetch api
     const initialFetch = async () => {
@@ -53,10 +52,12 @@ export const SearchForm = ({ addMovieToList }) => {
   };
 
   const handleOnAddToList = (cat) => {
-    console.log(cat);
     addMovieToList({ ...movie, cat });
     setMovie({});
     setForm("");
+  };
+  const handleOnClear = () => {
+    setMovie({});
   };
   // display movie data in our ui
   return (
@@ -75,7 +76,14 @@ export const SearchForm = ({ addMovieToList }) => {
         </Col>
       </Row>
       <Row className="py-5 d-flex justify-content-center">
-        {movie.imdbID && <MovieCard movie={movie} func={handleOnAddToList} />}
+        {movie.imdbID && (
+          <MovieCard
+            handleOnClear={handleOnClear}
+            movie={movie}
+            func={handleOnAddToList}
+            showDelete={true}
+          />
+        )}
         {error && <Alert variant="danger">{error}</Alert>}
       </Row>
     </Form>

@@ -5,7 +5,12 @@ import { Row, Col } from "react-bootstrap";
 import { MovieCard } from "./MovieCard";
 import { BtnGroup } from "./BtnGroup";
 
-export const MovieList = ({ movies }) => {
+export const MovieList = ({
+  movies,
+  handleOnDelete,
+  showDelete,
+  handleOnClear,
+}) => {
   const [display, setDisplay] = useState([movies]);
 
   useEffect(() => {
@@ -33,7 +38,13 @@ export const MovieList = ({ movies }) => {
       <Row>
         <Col className="mt-3 d-flex justify-content-around flex-wrap ">
           {display.map((item) => (
-            <MovieCard key={item.imdbID} movie={item} />
+            <MovieCard
+              key={item.imdbID}
+              movie={item}
+              showDelete={showDelete}
+              func={handleOnDelete}
+              handleOnClear={handleOnClear}
+            />
           ))}
         </Col>
       </Row>
